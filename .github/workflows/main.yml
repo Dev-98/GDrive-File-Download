@@ -1,0 +1,28 @@
+name: Testing things out
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  repo_name_lowercase:
+    runs-on: Ubuntu-latest
+    steps: 
+          
+      - name: Get Repository Name
+        id: get_repo_name
+        run: |
+          # Extract the repository name from $GITHUB_REPOSITORY
+          REPO_NAME=$(basename $GITHUB_REPOSITORY)
+          echo "Repository name without owner: $REPO_NAME"
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_OUTPUT
+      
+      - name: Lowercase
+        run: |
+          repo_name="${{ steps.get_repo_name.outputs.REPO_NAME }}"
+          lowercase_repo_name="${repo_name,,}"
+          
+          echo "$lowercase_repo_name"
+
+
+
